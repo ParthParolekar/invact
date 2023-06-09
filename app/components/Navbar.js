@@ -8,12 +8,18 @@ import {
   Heading,
   Spacer,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { toast } from "react-hot-toast";
+import { useSession } from "../providers/SessionProvider";
 
-const Navbar = ({ session }) => {
+const Navbar = () => {
   const logoutHandler = async () => {
-    supabase.auth.signOut().then(toast.success("Logge Out Successfully"));
+    await supabase.auth
+      .signOut()
+      .then(toast.success("Logged Out Successfully"));
   };
+  const { session } = useSession();
+  console.log(session);
   return (
     <Flex
       minWidth="max-content"
@@ -30,12 +36,16 @@ const Navbar = ({ session }) => {
       {/* <Spacer /> */}
       {!session ? (
         <Box gap="2">
-          <Button colorScheme="orange" variant="outline" marginRight={2}>
-            Sign Up
-          </Button>
-          <Button colorScheme="orange" variant="outline" marginRight={2}>
-            Log in
-          </Button>
+          <Link href="/authentication/signup">
+            <Button colorScheme="orange" variant="solid" marginRight={2}>
+              Sign Up
+            </Button>
+          </Link>
+          <Link href="/authentication/login">
+            <Button colorScheme="orange" variant="solid" marginRight={2}>
+              Log in
+            </Button>
+          </Link>
         </Box>
       ) : (
         <Box gap={2}>

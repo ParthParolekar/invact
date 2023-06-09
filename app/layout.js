@@ -1,10 +1,10 @@
-"use client";
-import { useEffect, useState } from "react";
+// "use client";
+
 import Navbar from "./components/Navbar";
 import "./globals.css";
 
 import { ChakraWrapper } from "./providers/ChakraProvider";
-import { supabase } from "@/utils/supabase";
+import { SessionProvider, useSession } from "./providers/SessionProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,20 +12,14 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const [session, setSession] = useState(null);
-
-  useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
-      setSession(session);
-    });
-  }, []);
   return (
     <html lang="en">
       <body>
         <ChakraWrapper>
-          <Navbar session={session} />
-          {children}
+          <SessionProvider>
+            <Navbar />
+            {children}
+          </SessionProvider>
         </ChakraWrapper>
       </body>
     </html>

@@ -1,13 +1,21 @@
 "use client";
+import { useSession } from "@/app/providers/SessionProvider";
 import { supabase } from "@/utils/supabase";
 import { Button, Flex, FormLabel, Heading, Input } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
   const router = useRouter();
+  const { session } = useSession();
   const [login, setLogin] = useState({ email: "", password: "" });
+
+  useEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [session]);
 
   const loginHandler = async (e) => {
     e.preventDefault();

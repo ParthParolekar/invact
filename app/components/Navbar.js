@@ -19,7 +19,7 @@ const Navbar = () => {
       .then(toast.success("Logged Out Successfully"));
   };
   const { session } = useSession();
-  console.log(session);
+
   return (
     <Flex
       minWidth="max-content"
@@ -29,9 +29,11 @@ const Navbar = () => {
       mt={2}
     >
       <Box p="2" display={["none", "block"]}>
-        <Heading size="lg" color={"orange.400"}>
-          Chakra App
-        </Heading>
+        <Link href="/">
+          <Heading size="lg" color={"orange.400"}>
+            Invact
+          </Heading>
+        </Link>
       </Box>
       {/* <Spacer /> */}
       {!session ? (
@@ -57,6 +59,11 @@ const Navbar = () => {
           >
             Log Out
           </Button>
+          <Link href="/createnote">
+            <Button colorScheme="orange" variant="solid" marginRight={2}>
+              Create Note
+            </Button>
+          </Link>
         </Box>
       )}
     </Flex>

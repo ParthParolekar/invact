@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, Input, filter } from "@chakra-ui/react";
 import SortByDate from "./sortByDate/SortByDate";
 import FilterByImportance from "./sortByImportance/FilterByImportance";
 
@@ -29,6 +29,14 @@ const Filters = ({ filters, setFilters, notes, setDisplayNotes }) => {
       );
     }
 
+    if (filters.search.length > 0) {
+      tempNotes = tempNotes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+          note.description.toLowerCase().includes(filters.search.toLowerCase())
+      );
+    }
+
     setDisplayNotes(tempNotes);
   };
 
@@ -37,6 +45,7 @@ const Filters = ({ filters, setFilters, notes, setDisplayNotes }) => {
     setFilters({
       sortByDate: "OLDEST",
       filterByImportance: "ALL",
+      search: "",
     });
   };
   return (
@@ -45,6 +54,16 @@ const Filters = ({ filters, setFilters, notes, setDisplayNotes }) => {
         <SortByDate filters={filters} setFilters={setFilters} />
         <FilterByImportance filters={filters} setFilters={setFilters} />
       </Flex>
+
+      <Input
+        type="text"
+        mb={3}
+        color="orange.400"
+        borderColor="orange"
+        placeholder="Search for notes by title or description"
+        value={filters.search}
+        onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+      />
       <Button
         mt={2}
         colorScheme={"orange"}

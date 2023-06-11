@@ -21,6 +21,7 @@ export default function Home() {
   const [filters, setFilters] = useState({
     sortByDate: "OLDEST",
     filterByImportance: "ALL",
+    search: "",
   });
 
   useEffect(() => {

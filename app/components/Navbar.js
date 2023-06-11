@@ -11,12 +11,15 @@ import {
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { useSession } from "../providers/SessionProvider";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   const logoutHandler = async () => {
     await supabase.auth
       .signOut()
-      .then(toast.success("Logged Out Successfully"));
+      .then(toast.success("Logged Out Successfully"))
+      .then(router.push("/authentication/login"));
   };
   const { session } = useSession();
 

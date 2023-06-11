@@ -45,6 +45,13 @@ const Login = () => {
       toast.error(`${error.message}`);
     }
   };
+
+  const testCredentialsHandler = () => {
+    setLogin({
+      email: "john@gmail.com",
+      password: process.env.NEXT_PUBLIC_TEST_PASSWORD,
+    });
+  };
   return (
     <Flex height="70vh" alignItems="center" justifyContent="center">
       <Flex
@@ -83,6 +90,9 @@ const Login = () => {
         />
         <Button colorScheme="orange" mt={4} onClick={loginHandler}>
           Login
+        </Button>
+        <Button colorScheme="orange" mt={4} onClick={testCredentialsHandler}>
+          Test Credentials
         </Button>
       </Flex>
     </Flex>

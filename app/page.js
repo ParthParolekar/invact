@@ -30,8 +30,6 @@ export default function Home() {
     }
   }, [session]);
 
-  console.log(filters);
-
   useEffect(() => {
     const fetchNotes = async () => {
       setLoading(true);
@@ -56,8 +54,6 @@ export default function Home() {
       fetchNotes();
     }
   }, []);
-
-  console.log(displayNotes);
 
   const deleteNoteHandler = async (id) => {
     try {

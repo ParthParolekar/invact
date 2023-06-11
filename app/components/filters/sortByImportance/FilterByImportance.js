@@ -35,13 +35,19 @@ const FilterByImportance = ({ filters, setFilters }) => {
         >
           <Stack direction="column">
             <MenuItem>
-              <Radio value="ALL">All</Radio>
+              <Radio value="ALL" name="Importance" id="all" checked={false}>
+                All
+              </Radio>
             </MenuItem>
             <MenuItem>
-              <Radio value="IMPORTANT">Important</Radio>
+              <Radio value="IMPORTANT" name="Importance" id="important">
+                Important
+              </Radio>
             </MenuItem>
             <MenuItem>
-              <Radio value="NOT IMPORTANT">Not Important</Radio>
+              <Radio value="NOT IMPORTANT" name="Importance" id="not-important">
+                Not Important
+              </Radio>
             </MenuItem>
           </Stack>
         </RadioGroup>

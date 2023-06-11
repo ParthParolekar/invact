@@ -6,24 +6,24 @@ import DeleteButton from "./DeleteButton";
 
 const Note = ({ note, deleteNoteHandler }) => {
   return (
-    <Link
+    <Flex
       key={note.id}
-      href={{
-        pathname: "/viewnote",
-        query: { ...note },
-      }}
+      w="100%"
+      rounded={6}
+      p={4}
+      mt={4}
+      background={note.important ? "orange.400" : "transparent"}
+      border="1px"
+      borderColor="orange"
+      cursor="pointer"
+      direction="column"
     >
-      <Flex
+      <Link
         key={note.id}
-        w="100%"
-        rounded={6}
-        p={4}
-        mt={4}
-        background={note.important ? "orange.400" : "transparent"}
-        border="1px"
-        borderColor="orange"
-        cursor="pointer"
-        direction="column"
+        href={{
+          pathname: "/viewnote",
+          query: { ...note },
+        }}
       >
         <Flex justifyContent="space-between" alignItems="center" w="100%">
           <Heading
@@ -35,12 +35,12 @@ const Note = ({ note, deleteNoteHandler }) => {
           </Heading>
           <ArrowForwardIcon color={note.important ? "black" : "orange.400"} />
         </Flex>
-        <Flex mt={2} gap={2}>
-          <EditButton note={note} />
-          <DeleteButton deleteNoteHandler={deleteNoteHandler} note={note} />
-        </Flex>
+      </Link>
+      <Flex mt={2} gap={2}>
+        <EditButton note={note} />
+        <DeleteButton deleteNoteHandler={deleteNoteHandler} note={note} />
       </Flex>
-    </Link>
+    </Flex>
   );
 };
 

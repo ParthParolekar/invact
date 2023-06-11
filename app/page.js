@@ -6,8 +6,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderIcon, toast } from "react-hot-toast";
 import { Button, Flex, Heading } from "@chakra-ui/react";
-import { ArrowForwardIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import {
+  ArrowForwardIcon,
+  DeleteIcon,
+  EditIcon,
+  SpinnerIcon,
+} from "@chakra-ui/icons";
 import Link from "next/link";
+import Note from "./components/Note";
 
 export default function Home() {
   const { session } = useSession();
@@ -41,10 +47,8 @@ export default function Home() {
       }
     };
 
-    if (session) {
-      fetchNotes();
-    }
-  }, [session]);
+    fetchNotes();
+  }, []);
 
   const deleteNoteHandler = async (id) => {
     try {
@@ -65,9 +69,9 @@ export default function Home() {
 
   if (loading) {
     return (
-      <h1>
-        <LoaderIcon />
-      </h1>
+      <Flex w="100vw" alignItems="center" justifyContent="center">
+        <SpinnerIcon w={20} h={20} color="orange.400" />
+      </Flex>
     );
   }
 
@@ -76,54 +80,19 @@ export default function Home() {
       {notes.length ? (
         <Flex w={["70vw", "50vw", "40vw"]} direction="column" mx="auto" mt="10">
           {notes.map((note) => (
-            <Flex
+            <Note
+              note={note}
               key={note.id}
-              w="100%"
-              rounded={6}
-              p={4}
-              mt={4}
-              background={note.important ? "orange.400" : "transparent"}
-              border="1px"
-              borderColor="orange"
-              cursor="pointer"
-              direction="column"
-            >
-              <Flex justifyContent="space-between" alignItems="center" w="100%">
-                <Heading
-                  size={["sm", "md"]}
-                  color={note.important ? "black" : "orange.400"}
-                  width="80%"
-                >
-                  {note.title}
-                </Heading>
-                <ArrowForwardIcon
-                  color={note.important ? "black" : "orange.400"}
-                />
-              </Flex>
-              <Flex mt={2} gap={2}>
-                <Link
-                  href={{
-                    pathname: "/editnote",
-                    query: { ...note },
-                  }}
-                >
-                  <Button colorScheme={"gray"} size="sm">
-                    <EditIcon />
-                  </Button>
-                </Link>
-                <Button
-                  colorScheme="red"
-                  size="sm"
-                  onClick={() => deleteNoteHandler(note.id)}
-                >
-                  <DeleteIcon />
-                </Button>
-              </Flex>
-            </Flex>
+              deleteNoteHandler={deleteNoteHandler}
+            />
           ))}
         </Flex>
       ) : (
-        "No notes found"
+        <Flex mx="auto" mt="10" w="100vw">
+          <Heading textAlign="center" color="white" w="100% " mx="auto">
+            No Notes to show
+          </Heading>
+        </Flex>
       )}
     </main>
   );

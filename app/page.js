@@ -83,29 +83,27 @@ export default function Home() {
 
   return (
     <main>
-      {displayNotes.length ? (
-        <Flex w={["70vw", "60vw", "40vw"]} direction="column" mx="auto" mt="10">
-          <Filters
-            filters={filters}
-            setFilters={setFilters}
-            notes={notes}
-            setDisplayNotes={setDisplayNotes}
-          />
-          {displayNotes.map((note) => (
+      <Flex w={["70vw", "60vw", "40vw"]} direction="column" mx="auto" mt="10">
+        <Filters
+          filters={filters}
+          setFilters={setFilters}
+          notes={notes}
+          setDisplayNotes={setDisplayNotes}
+        />
+        {displayNotes.length ? (
+          displayNotes.map((note) => (
             <Note
               note={note}
               key={note.id}
               deleteNoteHandler={deleteNoteHandler}
             />
-          ))}
-        </Flex>
-      ) : (
-        <Flex mx="auto" mt="10" w="100vw">
+          ))
+        ) : (
           <Heading textAlign="center" color="white" w="100% " mx="auto">
             {session && !loading && "No Notes to show"}
           </Heading>
-        </Flex>
-      )}
+        )}
+      </Flex>
     </main>
   );
 }
